@@ -3,18 +3,15 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        n = len(nums)
-        for i in range(1, n):
-            j = i
-            k = i - 1
-            
-            while k >= 0:
-                if nums[j] < nums[k]:
-                    nums[j], nums[k] = nums[k], nums[j]
-                    j -= 1
-                    k -= 1
-                else:
-                    break
+        l, m, h = 0, 0, len(nums) - 1
 
-        
-        
+        while m <= h:
+            if nums[m] == 0:
+                nums[l], nums[m] = nums[m], nums[l]
+                l += 1
+                m += 1
+            elif nums[m] == 1:
+                m += 1               
+            else:
+                nums[m], nums[h] = nums[h], nums[m]
+                h -= 1
