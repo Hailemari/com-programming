@@ -4,7 +4,7 @@ class Solution:
 
         for s in range(len(nums)):
             if nums[s] != val:
-                nums[s], nums[p] = nums[p], nums[s]
+                nums[p] = nums[s]
                 p += 1
 
         return p
