@@ -1,19 +1,27 @@
 class Solution:
     def shiftingLetters(self, s: str, shifts: List[List[int]]) -> str:
-        n = len(s) + 1
-        cumulative_shifts = [0] * (n)
-        res = []
+        n = len(s)
+        arr = list(map(ord, list(s)))
 
-        for start, end, direction in shifts:
-            shift_direction = 1 if direction == 1 else -1
-            cumulative_shifts[start] += shift_direction
-            cumulative_shifts[end + 1] -= shift_direction
+        added = [0] * (n + 1)
 
-        for i in range(n - 1):
-            if i != 0:
-                cumulative_shifts[i] += cumulative_shifts[i - 1]
+        for query in shifts:
+            left, right = query[0], query[1]
+            forward = query[2]
 
-            new_ascii = (ord(s[i]) - ord("a") + cumulative_shifts[i]) % 26 + ord("a")
-            res.append(chr(new_ascii))
+            if forward:
+                added[left] += 1
+                added[right + 1] -= 1
+            else:
+                added[left] += -1
+                added[right + 1] -= -1
 
-        return ''.join(res)
+            
+        for i in range(1, len(added)):
+            added[i] += added[i - 1]
+
+        for i, order in enumerate(arr):
+            order += added[i]
+            arr[i] = chr((order - 97) % 26 + 97)
+
+        return "".join(arr)
