@@ -6,8 +6,8 @@
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
-        a = headA
-        b = headB
+        partA = headA
+        partB = headB
         list1_len = 0
         list2_len = 0
 
@@ -20,18 +20,18 @@ class Solution:
         
         if list1_len > list2_len:
             while list1_len > list2_len:
-                a = a.next
+                partA = partA.next
                 list1_len -= 1
         
         if list1_len < list2_len:
             while list1_len < list2_len:
-                b = b.next
+                partB = partB.next
                 list2_len -= 1
 
-        while a and b:
-            if a == b:
-                return a
-            a = a.next
-            b = b.next
+        while partA and partB:
+            if partA == partB:
+                return partA
+            partA = partA.next
+            partB = partB.next
 
         return None
